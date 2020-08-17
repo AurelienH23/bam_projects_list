@@ -41,7 +41,7 @@ class ProjectCell: UICollectionViewCell {
     let favView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 4
-        view.backgroundColor = .green
+        view.layer.borderWidth = 1
         return view
     }()
     
@@ -80,8 +80,8 @@ class ProjectCell: UICollectionViewCell {
     }
     
     func updateFavView(_ isFav: Bool) {
-        favView.layer.borderColor = isFav ? UIColor.green.cgColor : UIColor.lightGray.cgColor
-        favView.backgroundColor = isFav ? .green : .clear
+        favView.layer.borderColor = isFav ? UIColor.blue.cgColor : UIColor.lightGray.cgColor
+        favView.backgroundColor = isFav ? .blue : .clear
     }
     
 }

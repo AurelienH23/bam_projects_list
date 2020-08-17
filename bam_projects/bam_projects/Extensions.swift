@@ -55,3 +55,9 @@ extension CGFloat {
     static let standardTouchSpace = CGFloat(integerLiteral: 44)
     
 }
+
+extension Notification.Name {
+    
+    static let projectFaved = NSNotification.Name("projectFaved")
+    
+}

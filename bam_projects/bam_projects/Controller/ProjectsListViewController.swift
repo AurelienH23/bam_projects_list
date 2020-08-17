@@ -130,37 +130,58 @@ class ProjectsListViewController: UICollectionViewController, UICollectionViewDe
         let context = appDelegate.persistentContainer.viewContext
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "CDProject")
-        request.returnsObjectsAsFaults = false
         
-        let predicateID = NSPredicate(format: "id == %d", selectedProject.id)
-        request.predicate = predicateID
+        // the predicate doesn't work here..
+//        let predicateID = NSPredicate(format: "id == %d", selectedProject.id)
+//        request.predicate = predicateID
         
         do {
             let result = try context.fetch(request)
             
             if result.count > 0 {
-                // else, unfav it, so delete it
+                var isDeleted = false
                 for object in result as! [NSManagedObject] {
-                    context.delete(object)
+                    if let persistedObjectId = object.value(forKey: "id") as? Int, persistedObjectId == selectedProject.id {
+                        context.delete(object)
+                        NotificationCenter.default.post(name: .projectFaved, object: nil)
+                        isDeleted = true
+                        let selectedCell = collectionView.cellForItem(at: indexPath) as! ProjectCell
+                        selectedCell.updateFavView(false)
+                    }
+                }
+                
+                if !isDeleted {
+                    addNewFavProject(fromIndexPath: indexPath)
                 }
             } else {
-                // if not, fav it, so create it
-                let entity = NSEntityDescription.entity(forEntityName: "CDProject", in: context)
-                let newProject = NSManagedObject(entity: entity!, insertInto: context)
-
-                newProject.setValue(selectedProject.id, forKey: "id")
-                newProject.setValue(selectedProject.name, forKey: "name")
-                newProject.setValue(selectedProject.body, forKey: "body")
-                newProject.setValue(selectedProject.url, forKey: "url")
-
-                do {
-                    try context.save()
-                } catch {
-                    print("Failed saving a project locally")
-                }
+                addNewFavProject(fromIndexPath: indexPath)
             }
         } catch {
             print("Failed checking project's existence")
+        }
+    }
+    
+    func addNewFavProject(fromIndexPath indexPath: IndexPath) {
+        let selectedProject = projects[indexPath.item]
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let entity = NSEntityDescription.entity(forEntityName: "CDProject", in: context)
+        let newProject = NSManagedObject(entity: entity!, insertInto: context)
+
+        newProject.setValue(selectedProject.id, forKey: "id")
+        newProject.setValue(selectedProject.name, forKey: "name")
+        newProject.setValue(selectedProject.body, forKey: "body")
+        newProject.setValue(selectedProject.url, forKey: "url")
+
+        do {
+            try context.save()
+            NotificationCenter.default.post(name: .projectFaved, object: nil)
+            let selectedCell = collectionView.cellForItem(at: indexPath) as! ProjectCell
+            selectedCell.updateFavView(true)
+        } catch {
+            print("Failed saving a project locally")
         }
     }
     
