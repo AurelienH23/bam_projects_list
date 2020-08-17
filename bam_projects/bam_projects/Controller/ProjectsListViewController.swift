@@ -6,6 +6,7 @@
 //  Copyright © 2020 Aurélien Haie. All rights reserved.
 //
 
+import CoreData
 import UIKit
 
 class ProjectsListViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
@@ -119,6 +120,48 @@ class ProjectsListViewController: UICollectionViewController, UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: .mediumSpace, left: .mediumSpace, bottom: .mediumSpace, right: .mediumSpace)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedProject = projects[indexPath.item]
+        
+        // check if already faved
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "CDProject")
+        request.returnsObjectsAsFaults = false
+        
+        let predicateID = NSPredicate(format: "id == %d", selectedProject.id)
+        request.predicate = predicateID
+        
+        do {
+            let result = try context.fetch(request)
+            
+            if result.count > 0 {
+                // else, unfav it, so delete it
+                for object in result as! [NSManagedObject] {
+                    context.delete(object)
+                }
+            } else {
+                // if not, fav it, so create it
+                let entity = NSEntityDescription.entity(forEntityName: "CDProject", in: context)
+                let newProject = NSManagedObject(entity: entity!, insertInto: context)
+
+                newProject.setValue(selectedProject.id, forKey: "id")
+                newProject.setValue(selectedProject.name, forKey: "name")
+                newProject.setValue(selectedProject.body, forKey: "body")
+                newProject.setValue(selectedProject.url, forKey: "url")
+
+                do {
+                    try context.save()
+                } catch {
+                    print("Failed saving a project locally")
+                }
+            }
+        } catch {
+            print("Failed checking project's existence")
+        }
     }
     
 }

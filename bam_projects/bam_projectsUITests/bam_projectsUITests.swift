@@ -6,6 +6,8 @@
 //  Copyright © 2020 Aurélien Haie. All rights reserved.
 //
 
+import UIKit
+import CoreGraphics
 import XCTest
 
 class bam_projectsUITests: XCTestCase {
@@ -28,8 +30,10 @@ class bam_projectsUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
 
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+//        let firstCell = app.staticTexts["node-spotify"]
+//        let start = firstCell.coordinate(withNormalizedOffset: CGVectorMake(0, 0))
+//        let finish = firstCell.coordinate(withNormalizedOffset: CGVectorMake(0, 6))
+//        start.press(forDuration: 0, thenDragTo: finish)
     }
 
     func testLaunchPerformance() throws {
