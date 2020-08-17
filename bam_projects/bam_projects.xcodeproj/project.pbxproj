@@ -17,6 +17,7 @@
 		0DC4657D24EB0DFB00E5FB4D /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC4657C24EB0DFB00E5FB4D /* MainTabController.swift */; };
 		0DC4657F24EB0E5200E5FB4D /* ProjectsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC4657E24EB0E5200E5FB4D /* ProjectsListViewController.swift */; };
 		0DC4658124EB0E8C00E5FB4D /* FavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC4658024EB0E8C00E5FB4D /* FavViewController.swift */; };
+		0DC4658324EB15D600E5FB4D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC4658224EB15D600E5FB4D /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		0DC4657C24EB0DFB00E5FB4D /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		0DC4657E24EB0E5200E5FB4D /* ProjectsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsListViewController.swift; sourceTree = "<group>"; };
 		0DC4658024EB0E8C00E5FB4D /* FavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavViewController.swift; sourceTree = "<group>"; };
+		0DC4658224EB15D600E5FB4D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 			children = (
 				0DC4654924EB0CF100E5FB4D /* AppDelegate.swift */,
 				0DC4654B24EB0CF100E5FB4D /* SceneDelegate.swift */,
+				0DC4658224EB15D600E5FB4D /* Extensions.swift */,
 				0DC4657C24EB0DFB00E5FB4D /* MainTabController.swift */,
 				0DC4657E24EB0E5200E5FB4D /* ProjectsListViewController.swift */,
 				0DC4658024EB0E8C00E5FB4D /* FavViewController.swift */,
@@ -270,6 +273,7 @@
 				0DC4655424EB0CF100E5FB4D /* bam_projects.xcdatamodeld in Sources */,
 				0DC4657F24EB0E5200E5FB4D /* ProjectsListViewController.swift in Sources */,
 				0DC4654C24EB0CF100E5FB4D /* SceneDelegate.swift in Sources */,
+				0DC4658324EB15D600E5FB4D /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
