@@ -8,13 +8,6 @@
 
 import UIKit
 
-struct Project {
-    let id: Int
-    let name: String
-    let body: String?
-    let url: String
-}
-
 class ProjectsListViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     // MARK: Properties
@@ -87,7 +80,7 @@ class ProjectsListViewController: UICollectionViewController, UICollectionViewDe
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ProjectCell
-        cell.backgroundColor = .blue
+        cell.project = projects[indexPath.item]
         return cell
     }
     
@@ -95,53 +88,8 @@ class ProjectsListViewController: UICollectionViewController, UICollectionViewDe
         return CGSize(width: collectionView.frame.width, height: 100)
     }
     
-}
-
-class ProjectCell: UICollectionViewCell {
-    
-    // MARK: View elements
-    
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Title"
-        label.textColor = .black
-        label.font = .boldSystemFont(ofSize: 20)
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    let descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.text = "descriptionLabel"
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 16)
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    
-    
-    // MARK: Lifecycle
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: Custom funcs
-    
-    fileprivate func setupViews() {
-        addSubview(titleLabel)
-        addSubview(descriptionLabel)
-        
-        titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: .mediumSpace, paddingLeft: .mediumSpace, paddingBottom: 0, paddingRight: .mediumSpace, width: 0, height: 0)
-        descriptionLabel.anchor(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: .smallSpace, paddingLeft: .mediumSpace, paddingBottom: .mediumSpace, paddingRight: .mediumSpace, width: 0, height: 0)
-        descriptionLabel.backgroundColor = .red
-        titleLabel.backgroundColor = .green
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
     
 }
