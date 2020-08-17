@@ -14,6 +14,7 @@ class FavViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Favorites"
         collectionView.backgroundColor = .green
     }
     

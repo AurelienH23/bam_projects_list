@@ -20,11 +20,16 @@ class MainTabController: UITabBarController {
     // MARK: Custom funcs
     
     fileprivate func setupTabs() {
-        let projectsList = ProjectsListViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        projectsList.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
-        let favList = FavViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        favList.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
+        let projectsList = createTab(for: ProjectsListViewController(collectionViewLayout: UICollectionViewFlowLayout()), withTitle: "Projects", andImage: UIImage(systemName: "tray.full.fill"))
+        let favList = createTab(for: FavViewController(collectionViewLayout: UICollectionViewFlowLayout()), withTitle: "Favorites", andImage: UIImage(systemName: "bookmark.fill"))
+        
         viewControllers = [projectsList, favList]
+    }
+    
+    fileprivate func createTab(for controller: UIViewController, withTitle: String, andImage: UIImage?) -> UIViewController {
+        let currentTab = UINavigationController(rootViewController: controller)
+        currentTab.tabBarItem = UITabBarItem(title: withTitle, image: andImage, tag: 0)
+        return currentTab
     }
     
 }
